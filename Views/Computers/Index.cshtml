@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Computer_Mart.Models.Computer>
+
+@{
+    ViewData["Title"] = "Computers";
+}
+
+<h1 class="ms-4">@ViewData["Title"]</h1>
+
+<div class="container-xxl d-flex flex-row flex-wrap justify-content-start">
+
+    @foreach (var item in Model)
+    {
+        <div class="container d-flex flex-column border box-shadow p-0 m-3" style="width:390px;">
+
+            <div class="bg_blue p-3">
+                <h4 class="m-0">@item.Name</h4>
+            </div>
+
+            <div class="row" style="height:300px;">
+
+                <div class="col-md-5 d-flex flex-column p-2 justify-content-center align-items-center">
+                    <div class="m-1" style="width:130px;">
+                        <img src="@item.pictureUrl" style="width:100%;"/>
+                    </div>
+                </div>
+
+                <div class="col-md-auto d-flex flex-column mt-3 me-2 ms-2">
+
+                    <p>@item.Description</p>
+                    <p class="fw-bold">@Html.DisplayFor(modelItem => item.Price)</p>
+                    @if (item.CPU != null)
+                    {
+                        <p><span class="text-secondary">CPU: </span>@item.CPU.Name</p>
+                    }
+                    @if (item.GPU != null)
+                    {
+                        <p><span class="text-secondary">GPU: </span>@item.GPU.Name</p>
+                    }
+                    @if (item.RAM != null)
+                    {
+                        <p><span class="text-secondary">RAM: </span>@item.RAM.Name</p>
+                    }
+                    @if (item.SSD != null)
+                    {
+                        <p><span class="text-secondary">SSD: </span>@item.SSD.Name</p>
+                    }
+
+                </div>
+
+            </div>
+
+            <div class="d-flex flex-row">
+
+                <a class="btn btn-success" style="width:50%; border-radius:0;">Add to Cart</a>
+                <a class="btn btn-dark" style="width:50%; border-radius:0;">Details</a>
+
+            </div>
+
+        </div>
+    }
+
+</div>
+<div style="position:fixed; bottom:25px; right:25px;">
+    <a asp-action="Create" class="btn btn-success"><i class="bi bi-plus-circle"></i> Create New</a>
+</div>
