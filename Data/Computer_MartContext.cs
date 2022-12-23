@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Computer_Mart.Models;
+using Computer_Mart.Models.Auth;
 
 namespace Computer_Mart.Data
 {
@@ -14,14 +15,16 @@ namespace Computer_Mart.Data
         {
         }
 
-        public DbSet<Computer_Mart.Models.CPU> CPU { get; set; } = default!;
+        public DbSet<CPU> CPU { get; set; }
 
-        public DbSet<Computer_Mart.Models.GPU> GPU { get; set; } = default!;
+        public DbSet<GPU> GPU { get; set; }
 
-        public DbSet<Computer_Mart.Models.RAM> RAM { get; set; } = default!;
+        public DbSet<RAM> RAM { get; set; }
 
-        public DbSet<Computer_Mart.Models.SSD> SSD { get; set; } = default!;
+        public DbSet<SSD> SSD { get; set; }
 
-        public DbSet<Computer_Mart.Models.Computer> Computer { get; set; } = default!;
+        public DbSet<Computer> Computer { get; set; }
+
+        public DbSet<User> Users { get; set; }
     }
 }

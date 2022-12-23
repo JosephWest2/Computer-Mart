@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Computer_Mart.Data;
 using Computer_Mart.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Computer_Mart.Controllers
 {
@@ -20,6 +21,7 @@ namespace Computer_Mart.Controllers
         }
 
         // GET: Computers
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var computer_MartContext = _context.Computer.Include(c => c.CPU).Include(c => c.GPU).Include(c => c.RAM).Include(c => c.SSD);

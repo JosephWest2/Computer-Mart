@@ -13,7 +13,7 @@ namespace Computer_Mart.Models
 		public string Description { get; set; }
 		[DataType(DataType.Currency)]
 		[Required]
-		public decimal Price { get; set; }
+		public float Price { get; set; }
 		[Required]
 		[DisplayName("Image URL")]
 		public string pictureUrl { get; set; }

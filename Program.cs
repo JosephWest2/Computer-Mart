@@ -1,11 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Computer_Mart.Data;
+using System.Security.Claims;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<Computer_MartContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Computer_MartContext") ?? throw new InvalidOperationException("Connection string 'Computer_MartContext' not found.")));
 
 // Add services to the container.
+builder.Services.AddAuthentication(Constants.AuthCookieString).AddCookie(Constants.AuthCookieString, options =>
+{
+	options.Cookie.Name = Constants.AuthCookieString;
+});
+
+builder.Services.AddAuthorization(options =>
+{
+	options.AddPolicy("AdminRequired", policy =>
+	{
+		policy.RequireClaim(ClaimTypes.Role, "Admin");
+	});
+});
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -23,6 +37,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
