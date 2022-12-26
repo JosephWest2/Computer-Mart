@@ -20,6 +20,11 @@ namespace Computer_Mart.Controllers
 
         public IActionResult Index()
         {
+            string stringId = User.Claims.FirstOrDefault(claim => claim.Type == "userId").Value;
+            int userId = int.Parse(stringId);
+
+            float funds = _context.Users.FirstOrDefault(u => u.Id == userId).Funds;
+            ViewData["Funds"] = funds.ToString("C");
             return View();
         }
 
@@ -34,12 +39,12 @@ namespace Computer_Mart.Controllers
 
             if (user == null)
             {
-                ViewData["Alert"] = "Invalid Username";
+                TempData["Alert"] = "Invalid Username";
                 return View();
             }
             else if (!AuthenticateUser.CheckPassword(credential.Password, user.PasswordHash))
             {
-                ViewData["Alert"] = "Invalid Password";
+                TempData["Alert"] = "Invalid Password";
                 return View();
             }
 
@@ -61,6 +66,7 @@ namespace Computer_Mart.Controllers
 
             await HttpContext.SignInAsync(Constants.AuthCookieString, claimsPrincipal);
 
+            TempData["Alert"] = $"Logged in successfully as {user.Username}.";
             return RedirectToAction("Index", "Computers");
         }
 
@@ -92,11 +98,25 @@ namespace Computer_Mart.Controllers
                 };
                 _context.Users.Add(newUser);
                 _context.SaveChanges();
-                ViewData["Alert"] = "Successfully Registered";
+                TempData["Alert"] = "Successfully Registered";
                 return RedirectToAction(nameof(Login));
             }
             
             return View();
+        }
+
+        public IActionResult AddFunds()
+        {
+            string stringId = User.Claims.FirstOrDefault(claim => claim.Type == "userId").Value;
+            int userId = int.Parse(stringId);
+
+            User user = _context.Users.FirstOrDefault(u => u.Id == userId);
+            user.Funds += 1000;
+
+            _context.Update(user);
+            _context.SaveChanges();
+
+            return Redirect(Request.Headers.Referer.ToString());
         }
 
         public IActionResult AccessDenied()

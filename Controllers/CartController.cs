@@ -1,5 +1,6 @@
 ﻿using Computer_Mart.Data;
 using Computer_Mart.Models;
+using Computer_Mart.Models.Auth;
 using Computer_Mart.Models.Cart;
 using Computer_Mart.Models.Order;
 using Computer_Mart.Statics;
@@ -21,7 +22,14 @@ namespace Computer_Mart.Controllers
         public IActionResult Index()
 		{
 			var cartInstance = HttpContext.Session.Get<ShoppingCart>(Constants.SessionCartString);
-			return View(cartInstance);
+
+            string stringId = User.Claims.FirstOrDefault(claim => claim.Type == "userId").Value;
+            int userId = int.Parse(stringId);
+
+            float funds = _context.Users.FirstOrDefault(u => u.Id == userId).Funds;
+            ViewData["Funds"] = funds.ToString("C");
+
+            return View(cartInstance);
 		}
 
 		public IActionResult Add(int id)
@@ -62,6 +70,7 @@ namespace Computer_Mart.Controllers
 			
 
 			HttpContext.Session.Set<ShoppingCart>(Constants.SessionCartString, cartInstance);
+			TempData["Alert"] = "Item added.";
 
 			return Redirect(Request.Headers.Referer.ToString());
 		}
@@ -146,19 +155,29 @@ namespace Computer_Mart.Controllers
 			return RedirectToAction(nameof(Index));
 		}
 
-		[HttpPost]
 		public IActionResult Checkout()
 		{
+			
+
 			var cartInstance = HttpContext.Session.Get<ShoppingCart>(Constants.SessionCartString);
 
             string stringId = User.Claims.FirstOrDefault(claim => claim.Type == "userId").Value;
             int userId = int.Parse(stringId);
 
-			Order order = new Order()
+			float funds = _context.Users.FirstOrDefault(u => u.Id == userId).Funds;
+			if (funds < cartInstance.PriceTotal)
+			{
+				TempData["Alert"] = "More funds needed.";
+				return RedirectToAction("Index");
+			}
+
+
+            Order order = new Order()
 			{
 				Id = Guid.NewGuid().ToString(),
 				Total = cartInstance.PriceTotal,
-				UserId = userId
+				UserId = userId,
+				Date = DateTime.Now
 			};
 			_context.Add(order);
 			_context.SaveChanges();
@@ -167,10 +186,25 @@ namespace Computer_Mart.Controllers
 			{
 				OrderItem orderItem = new OrderItem()
 				{
+					ProductName = item.Computer.Name,
+					Quantity = item.Quantity,
+					Price = item.PriceTotal,
+					OrderId = order.Id
+				};
+				_context.Add(orderItem);
+				_context.SaveChanges();
 
-				}
 			}
-            return RedirectToAction("Index");
+
+			User user = _context.Users.FirstOrDefault(u => u.Id == userId);
+			user.Funds -= cartInstance.PriceTotal;
+
+			_context.Update(user);
+			_context.SaveChanges();
+
+            HttpContext.Session.Remove(Constants.SessionCartString);
+			TempData["Alert"] = "Purchase successful.";
+            return RedirectToAction("Index", "Orders");
 		}
 
 		public static void EmptyCartCheck(HttpContext httpContext)

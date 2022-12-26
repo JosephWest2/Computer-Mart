@@ -8,7 +8,8 @@
 <div class="p-3"></div>
 @if (Model != null)
 {
-	<h3 class="text-primary">@Html.DisplayFor(modelItem => Model.PriceTotal)</h3>
+    <h3 class="text-secondary">Your Funds: @ViewData["Funds"] <a asp-controller="Account" asp-action="AddFunds" class="btn btn-success btn-sm">+</a></h3>
+	<h3 class="text-primary">Total Price: @Html.DisplayFor(modelItem => Model.PriceTotal)</h3>
     <table class="table">
         <thead>
             <tr>
@@ -46,6 +47,7 @@
             }
         </tbody>
     </table>
+    <a asp-action="Checkout" class="btn btn-success">Complete Purchase</a>
 }
 else
 {

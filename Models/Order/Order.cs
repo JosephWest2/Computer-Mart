@@ -5,6 +5,7 @@ namespace Computer_Mart.Models.Order
 {
     public class Order
     {
+        [Key]
         public string Id { get; set; }
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
