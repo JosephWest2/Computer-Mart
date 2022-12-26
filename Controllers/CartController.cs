@@ -150,12 +150,25 @@ namespace Computer_Mart.Controllers
 		public IActionResult Checkout()
 		{
 			var cartInstance = HttpContext.Session.Get<ShoppingCart>(Constants.SessionCartString);
-			
+
+            string stringId = User.Claims.FirstOrDefault(claim => claim.Type == "userId").Value;
+            int userId = int.Parse(stringId);
+
 			Order order = new Order()
 			{
 				Id = Guid.NewGuid().ToString(),
 				Total = cartInstance.PriceTotal,
+				UserId = userId
+			};
+			_context.Add(order);
+			_context.SaveChanges();
 
+			foreach (CartItem item in cartInstance.Items)
+			{
+				OrderItem orderItem = new OrderItem()
+				{
+
+				}
 			}
             return RedirectToAction("Index");
 		}
