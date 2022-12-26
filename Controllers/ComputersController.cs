@@ -21,7 +21,7 @@ namespace Computer_Mart.Controllers
         }
 
         // GET: Computers
-        [Authorize]
+        
         public async Task<IActionResult> Index()
         {
             var computer_MartContext = _context.Computer.Include(c => c.CPU).Include(c => c.GPU).Include(c => c.RAM).Include(c => c.SSD);
@@ -51,6 +51,7 @@ namespace Computer_Mart.Controllers
         }
 
         // GET: Computers/Create
+        [Authorize(Policy = "AdminRequired")]
         public IActionResult Create()
         {
             ViewData["CPUId"] = new SelectList(_context.CPU, "Id", "Name");
@@ -65,6 +66,7 @@ namespace Computer_Mart.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "AdminRequired")]
         public async Task<IActionResult> Create([Bind("CPUId,GPUId,RAMId,SSDId,Id,Name,Description,Price,pictureUrl")] Computer computer)
         {
             if (ModelState.IsValid)
@@ -81,6 +83,7 @@ namespace Computer_Mart.Controllers
         }
 
         // GET: Computers/Edit/5
+        [Authorize(Policy = "AdminRequired")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Computer == null)
@@ -105,6 +108,7 @@ namespace Computer_Mart.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "AdminRequired")]
         public async Task<IActionResult> Edit(int id, [Bind("CPUId,GPUId,RAMId,SSDId,Id,Name,Description,Price,pictureUrl")] Computer computer)
         {
             if (id != computer.Id)
@@ -140,6 +144,7 @@ namespace Computer_Mart.Controllers
         }
 
         // GET: Computers/Delete/5
+        [Authorize(Policy = "AdminRequired")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Computer == null)
@@ -164,6 +169,7 @@ namespace Computer_Mart.Controllers
         // POST: Computers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "AdminRequired")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Computer == null)

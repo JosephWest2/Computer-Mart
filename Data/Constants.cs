@@ -3,5 +3,6 @@
     static class Constants
     {
         public const string AuthCookieString = "AuthenticationCookie";
+        public const string SessionCartString = "ComputerMartShoppingCart";
     }
 }

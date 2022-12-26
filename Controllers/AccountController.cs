@@ -18,6 +18,11 @@ namespace Computer_Mart.Controllers
 			_context = context;
 		}
 
+        public IActionResult Index()
+        {
+            return View();
+        }
+
 		public IActionResult Login()
         {
             return View();
@@ -45,6 +50,10 @@ namespace Computer_Mart.Controllers
             if (user.Admin)
             {
                 claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+            }
+            else
+            {
+                claims.Add(new Claim(ClaimTypes.Role, "User"));
             }
             ClaimsIdentity identity = new ClaimsIdentity(claims, Constants.AuthCookieString);
             ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);

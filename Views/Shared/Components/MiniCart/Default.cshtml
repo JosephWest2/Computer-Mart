@@ -1,0 +1,9 @@
+﻿@using Computer_Mart.Models.Cart;
+@model ShoppingCart
+
+@if (Model != null)
+{
+	<li class="nav-item">
+		<a class="nav-link text-success" role="button" asp-area="" asp-controller="Cart" asp-action="Index">Cart <i class="bi bi-cart-fill text-success"></i> @ViewData["Count"]</a>
+	</li>
+}

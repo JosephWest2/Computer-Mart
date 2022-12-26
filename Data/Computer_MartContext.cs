@@ -26,5 +26,21 @@ namespace Computer_Mart.Data
         public DbSet<Computer> Computer { get; set; }
 
         public DbSet<User> Users { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Username = "Admin",
+                    PasswordHash = Statics.AuthenticateUser.CreatePasswordHash("Admin1234*"),
+                    Admin = true,
+                    Id = -1
+                });
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Username)
+                .IsUnique();
+        }
     }
 }

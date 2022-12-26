@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Computers";
+    Layout = "~/Views/Shared/_Layout3.cshtml";
 }
 
 <h1 class="ms-4">@ViewData["Title"]</h1>
@@ -10,13 +11,13 @@
 
     @foreach (var item in Model)
     {
-        <div class="container d-flex flex-column border box-shadow p-0 m-3" style="width:390px;">
+        <div class="container d-flex flex-column border-dark box-shadow p-0 m-3 bg-light" style="width:390px;">
 
             <div class="bg_blue p-3">
                 <h4 class="m-0">@item.Name</h4>
             </div>
 
-            <div class="row" style="height:300px;">
+            <div class="row">
 
                 <div class="col-md-5 d-flex flex-column p-2 justify-content-center align-items-center">
                     <div class="m-1" style="width:130px;">
@@ -51,8 +52,8 @@
 
             <div class="d-flex flex-row">
 
-                <a class="btn btn-success" style="width:50%; border-radius:0;">Add to Cart</a>
-                <a class="btn btn-dark" style="width:50%; border-radius:0;">Details</a>
+                <a asp-controller="Cart" asp-action="Add" asp-route-id="@item.Id" class="btn btn-success" style="width:50%; border-radius:0;">Add to Cart</a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-dark" style="width:50%; border-radius:0;">Details</a>
 
             </div>
 
@@ -60,6 +61,4 @@
     }
 
 </div>
-<div style="position:fixed; bottom:25px; right:25px;">
-    <a asp-action="Create" class="btn btn-success"><i class="bi bi-plus-circle"></i> Create New</a>
-</div>
+<partial name="~/Views/Shared/_CreatePartial.cshtml"></partial>

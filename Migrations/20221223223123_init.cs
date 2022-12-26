@@ -80,7 +80,7 @@ namespace ComputerMart.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Admin = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -129,6 +129,11 @@ namespace ComputerMart.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Admin", "PasswordHash", "Username" },
+                values: new object[] { -1, true, "AQAAAAIAAYagAAAAEFUu99WYwKtzrju3CmR1lbIHtxk5M/veZdvSccNdeq9pLG6zvE/VEJIWJaSKcucudQ==", "Admin" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Computer_CPUId",
                 table: "Computer",
@@ -148,6 +153,12 @@ namespace ComputerMart.Migrations
                 name: "IX_Computer_SSDId",
                 table: "Computer",
                 column: "SSDId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Username",
+                table: "Users",
+                column: "Username",
+                unique: true);
         }
 
         /// <inheritdoc />

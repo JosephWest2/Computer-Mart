@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ComputerMart.Migrations
 {
     [DbContext(typeof(Computer_MartContext))]
-    [Migration("20221223053340_init")]
+    [Migration("20221223223123_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -42,11 +42,23 @@ namespace ComputerMart.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Username")
+                        .IsUnique();
+
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = -1,
+                            Admin = true,
+                            PasswordHash = "AQAAAAIAAYagAAAAEFUu99WYwKtzrju3CmR1lbIHtxk5M/veZdvSccNdeq9pLG6zvE/VEJIWJaSKcucudQ==",
+                            Username = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("Computer_Mart.Models.CPU", b =>

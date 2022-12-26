@@ -1,0 +1,25 @@
+﻿
+
+
+
+    @if (User.Identity.IsAuthenticated)
+    {
+
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" role="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-fill"></i>
+                @if (User.IsInRole("Admin")) {
+                    <span class="text-primary">Admin </span>
+                }
+                @User.Identity.Name</a>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton2">
+                                <a class="dropdown-item" role="button" asp-area="" asp-controller="Account" asp-action="Index"><i class="bi bi-house-fill"></i> Account</a>
+                                <a class="dropdown-item" role="button" asp-area="" asp-controller="Account" asp-action="Logout"><i class="bi bi-door-open-fill"></i> Logout</a>
+                            </div>
+                        </li>
+    }
+    else
+    {
+            <li class="nav-item">
+                <a class="nav-link" role="button" asp-area="" asp-controller="Account" asp-action="Login"><i class="bi bi-person-fill"></i> Login</a>
+            </li>
+    }

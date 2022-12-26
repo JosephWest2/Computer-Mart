@@ -1,8 +1,15 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center pt-5">
+    <div class="background_light p-1">
+        <h1 class="display-4">Welcome to Computer Mart</h1>
+    </div>
+    <div class="p-3">
+        <h4><span><a class="no_underline" role="button" asp-controller="Computers" asp-action="Index">Click here</a> to begin shopping!</span></h4>
+    </div>
+    
 </div>

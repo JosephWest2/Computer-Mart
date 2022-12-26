@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace Computer_Mart.Models
 {
-	public abstract class ComponentBase
+	public abstract class ComponentBase : IProduct
 	{
 		[Key]
 		public int Id { get; set; }

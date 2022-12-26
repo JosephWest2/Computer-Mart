@@ -1,0 +1,56 @@
+﻿@model Computer_Mart.Models.Cart.ShoppingCart
+
+@{
+	ViewData["Title"] = "Your Cart";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div class="p-3"></div>
+@if (Model != null)
+{
+	<h3 class="text-primary">@Html.DisplayFor(modelItem => Model.PriceTotal)</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Product Name
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    Total Price
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Computer.Name)
+                    </td>
+                    <td>
+                        <a asp-action="Increase" asp-route-id="@item.Computer.Id" class="btn btn-light btn-sm">+</a>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                        <a asp-action="Decrease" asp-route-id="@item.Computer.Id" class="btn btn-light btn-sm">-</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PriceTotal)
+                    </td>
+                    <td>
+                        <a asp-action="Remove" asp-route-id="@item.Computer.Id" class="btn btn-danger">Remove From Cart</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+	<h3>Your Cart is Empty</h3>
+    <p><a asp-controller="Computers" asp-action="Index">Click here</a> to continue shopping.</p>
+}
+
+

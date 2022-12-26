@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Computer_Mart.Data;
 using Computer_Mart.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Computer_Mart.Controllers
 {
+    [Authorize(Policy = "AdminRequired")]
     public class SSDsController : Controller
     {
         private readonly Computer_MartContext _context;

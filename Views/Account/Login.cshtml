@@ -1,7 +1,7 @@
 ﻿@model Computer_Mart.Models.Auth.Credential
 
 @{
-	ViewData["Tilte"] = "Login";
+	ViewData["Title"] = "Login";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -23,5 +23,8 @@
                 <input type="submit" value="Login" class="btn btn-primary mt-2 mb-2" />
             </div>
         </form>
+        <div>
+            <p>No account? <a asp-action="Register">Register here.</a></p>
+        </div>
     </div>
 </div>
