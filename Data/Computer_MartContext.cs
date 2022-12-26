@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Computer_Mart.Models;
 using Computer_Mart.Models.Auth;
+using Computer_Mart.Models.Order;
 
 namespace Computer_Mart.Data
 {
@@ -26,6 +27,10 @@ namespace Computer_Mart.Data
         public DbSet<Computer> Computer { get; set; }
 
         public DbSet<User> Users { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<OrderItem> OrderItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -55,13 +55,13 @@ h2 {
     color: royalblue;
 }
 .background_main_grey {
-    background-color: darkgrey;
+    background-color: lightgrey;
 }
 .bg_wtf {
     position: absolute;
     top: -16px;
     width: 100%;
-    background-color: darkgrey;
+    background-color: lightgrey;
     height: 16px;
 }
 .bg_wtf_container {

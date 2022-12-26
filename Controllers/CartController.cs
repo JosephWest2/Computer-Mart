@@ -1,6 +1,7 @@
 ﻿using Computer_Mart.Data;
 using Computer_Mart.Models;
 using Computer_Mart.Models.Cart;
+using Computer_Mart.Models.Order;
 using Computer_Mart.Statics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -145,6 +146,20 @@ namespace Computer_Mart.Controllers
 			return RedirectToAction(nameof(Index));
 		}
 
+		[HttpPost]
+		public IActionResult Checkout()
+		{
+			var cartInstance = HttpContext.Session.Get<ShoppingCart>(Constants.SessionCartString);
+			
+			Order order = new Order()
+			{
+				Id = Guid.NewGuid().ToString(),
+				Total = cartInstance.PriceTotal,
+
+			}
+            return RedirectToAction("Index");
+		}
+
 		public static void EmptyCartCheck(HttpContext httpContext)
 		{
 			var cartInstance = httpContext.Session.Get<ShoppingCart>(Constants.SessionCartString);
@@ -154,5 +169,6 @@ namespace Computer_Mart.Controllers
 			}
 			
         }
+
 	}
 }

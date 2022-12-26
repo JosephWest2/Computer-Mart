@@ -53,7 +53,7 @@ namespace ComputerMart.Migrations
                         {
                             Id = -1,
                             Admin = true,
-                            PasswordHash = "AQAAAAIAAYagAAAAEFUu99WYwKtzrju3CmR1lbIHtxk5M/veZdvSccNdeq9pLG6zvE/VEJIWJaSKcucudQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENIVw/QIg0FtiNqM9nXJSGtmj7Ut1f4FwmMJU6UOWKzCa8lv9UsnvCYsXAG53i8IGA==",
                             Username = "Admin"
                         });
                 });
@@ -162,6 +162,58 @@ namespace ComputerMart.Migrations
                     b.ToTable("GPU");
                 });
 
+            modelBuilder.Entity("Computer_Mart.Models.Order.Order", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<float>("Total")
+                        .HasColumnType("real");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Computer_Mart.Models.Order.OrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OrderId1")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId1");
+
+                    b.ToTable("OrderItems");
+                });
+
             modelBuilder.Entity("Computer_Mart.Models.RAM", b =>
                 {
                     b.Property<int>("Id")
@@ -243,6 +295,26 @@ namespace ComputerMart.Migrations
                     b.Navigation("RAM");
 
                     b.Navigation("SSD");
+                });
+
+            modelBuilder.Entity("Computer_Mart.Models.Order.Order", b =>
+                {
+                    b.HasOne("Computer_Mart.Models.Auth.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Computer_Mart.Models.Order.OrderItem", b =>
+                {
+                    b.HasOne("Computer_Mart.Models.Order.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId1");
+
+                    b.Navigation("Order");
                 });
 #pragma warning restore 612, 618
         }

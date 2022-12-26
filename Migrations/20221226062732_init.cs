@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -129,10 +130,52 @@ namespace ComputerMart.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Total = table.Column<float>(type: "real", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<float>(type: "real", nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    OrderId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderItems_Orders_OrderId1",
+                        column: x => x.OrderId1,
+                        principalTable: "Orders",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Admin", "PasswordHash", "Username" },
-                values: new object[] { -1, true, "AQAAAAIAAYagAAAAEFUu99WYwKtzrju3CmR1lbIHtxk5M/veZdvSccNdeq9pLG6zvE/VEJIWJaSKcucudQ==", "Admin" });
+                values: new object[] { -1, true, "AQAAAAIAAYagAAAAENIVw/QIg0FtiNqM9nXJSGtmj7Ut1f4FwmMJU6UOWKzCa8lv9UsnvCYsXAG53i8IGA==", "Admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Computer_CPUId",
@@ -155,6 +198,16 @@ namespace ComputerMart.Migrations
                 column: "SSDId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_OrderItems_OrderId1",
+                table: "OrderItems",
+                column: "OrderId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_UserId",
+                table: "Orders",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Users_Username",
                 table: "Users",
                 column: "Username",
@@ -168,7 +221,7 @@ namespace ComputerMart.Migrations
                 name: "Computer");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "OrderItems");
 
             migrationBuilder.DropTable(
                 name: "CPU");
@@ -181,6 +234,12 @@ namespace ComputerMart.Migrations
 
             migrationBuilder.DropTable(
                 name: "SSD");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }
