@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Computer_Mart.Models.Order.Order>
 
 @{
-    ViewData["Title"] = "Orders";
+    ViewData["Title"] = "Your Orders";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -40,3 +40,4 @@
 }
     </tbody>
 </table>
+<a class="mb-3" asp-action="Index" asp-controller="Account">Back</a>

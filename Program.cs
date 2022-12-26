@@ -4,17 +4,9 @@ using Computer_Mart.Data;
 using System.Security.Claims;
 var builder = WebApplication.CreateBuilder(args);
 
-if (false)
-{
-    builder.Services.AddDbContext<Computer_MartContext>(options =>
-		options.UseSqlServer(builder.Configuration.GetConnectionString("Computer_MartContext") ?? throw new InvalidOperationException("Connection string 'Computer_MartContext' not found.")));
-}
-else
-{
-    builder.Services.AddDbContext<Computer_MartContext>(options =>
-        options.UseSqlite(builder.Configuration.GetConnectionString("SqliteComputerMartContext")));
-}
 
+builder.Services.AddDbContext<Computer_MartContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("Computer_MartContext") ?? throw new InvalidOperationException("Connection string 'Computer_MartContext' not found.")));
 
 
 // Add services to the container.

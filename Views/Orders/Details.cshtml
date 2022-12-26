@@ -6,10 +6,13 @@
 
 <h1>@ViewData["Title"] @ViewBag.order.Id</h1>
 
-<h4 class="text-secondary pt-3">@ViewBag.order.Date</h4>
-<h4 class="text-primary">@ViewData["priceString"]</h4>
+<div class="pt-3 pb-3">
+    <h4 class="text-secondary pt-3 pb-2">@ViewBag.order.Date</h4>
+    <h4 class="text-primary">@ViewData["priceString"]</h4>
+</div>
 
-<table class="table">
+
+<table class="table pb-3">
     <thead>
         <tr>
             <th>

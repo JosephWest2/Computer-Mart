@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Computer_Mart.Models.Order
@@ -7,7 +8,8 @@ namespace Computer_Mart.Models.Order
     {
         [Key]
         public int Id { get; set; }
-        public string ProductName { get; set; }
+		[DisplayName("Product")]
+		public string ProductName { get; set; }
         public int Quantity { get; set; }
         [DataType(DataType.Currency)]
         public float Price { get; set; }

@@ -9,7 +9,7 @@
 @if (Model != null)
 {
     <h3 class="text-secondary">Your Funds: @ViewData["Funds"] <a asp-controller="Account" asp-action="AddFunds" class="btn btn-success btn-sm">+</a></h3>
-	<h3 class="text-primary">Total Price: @Html.DisplayFor(modelItem => Model.PriceTotal)</h3>
+	<h3 class="text-primary pb-3">Total Price: @Html.DisplayFor(modelItem => Model.PriceTotal)</h3>
     <table class="table">
         <thead>
             <tr>
@@ -54,5 +54,6 @@ else
 	<h3>Your Cart is Empty</h3>
     <p><a asp-controller="Computers" asp-action="Index">Click here</a> to continue shopping.</p>
 }
+<div class="mb-3"></div>
 
 
