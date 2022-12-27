@@ -11,8 +11,8 @@ namespace Computer_Mart.Models
 		public string Name { get; set; }
 		[Required]
 		public string Description { get; set; }
-		[DataType(DataType.Currency)]
-		[Required]
+        [DataType(DataType.Currency)]
+        [Required]
 		public float Price { get; set; }
 		[Required]
 		[DisplayName("Image URL")]

@@ -6,10 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddDbContext<Computer_MartContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("Computer_MartContext") ?? throw new InvalidOperationException("Connection string 'Computer_MartContext' not found.")));
+		options.UseSqlServer(builder.Configuration.GetConnectionString("Computer_MartContext") ?? throw new InvalidOperationException("Connection string 'Computer_MartContext' not found.")));
+
 
 
 // Add services to the container.
+
+
 builder.Services.AddAuthentication(Constants.AuthCookieString).AddCookie(Constants.AuthCookieString, options =>
 {
 	options.Cookie.Name = Constants.AuthCookieString;
@@ -47,8 +50,9 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseRouting();
+app.Services.CreateScope().ServiceProvider.GetService<Computer_MartContext>().Database.Migrate();
 
+app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
