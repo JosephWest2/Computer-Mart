@@ -67,5 +67,9 @@ h4 {
 }
 .computer_details_img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: contain;
+}
+.text_grey {
+    color: rgb(173, 179, 190);
 }
