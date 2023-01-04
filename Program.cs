@@ -26,6 +26,11 @@ builder.Services.AddAuthorization(options =>
 	});
 });
 
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+	options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en-US");
+});
+
 builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
@@ -50,12 +55,14 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+
 app.Services.CreateScope().ServiceProvider.GetService<Computer_MartContext>().Database.Migrate();
 
 app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseRequestLocalization();
 
 app.UseSession();
 
