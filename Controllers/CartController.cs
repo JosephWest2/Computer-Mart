@@ -70,7 +70,7 @@ namespace Computer_Mart.Controllers
 			
 
 			HttpContext.Session.Set<ShoppingCart>(Constants.SessionCartString, cartInstance);
-			TempData["Alert"] = "Item added.";
+			TempData["Alert"] = "Item added to cart";
 
 			return Redirect(Request.Headers.Referer.ToString());
 		}
