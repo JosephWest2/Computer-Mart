@@ -12,38 +12,38 @@
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Description)
             </dt>
-            <dd class="col-sm-10">
+            <dd class="col-sm-10 text-light">
                 @Html.DisplayFor(model => model.Description)
             </dd>
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Price)
             </dt>
-            <dd class="col-sm-10">
+            <dd class="col-sm-10 text-light">
                 @Html.DisplayFor(model => model.Price)
             </dd>
             <div class="container-fluid border-bottom border-secondary pb-4 mb-2"></div>
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.CPU)
             </dt>
-            <dd class="col-sm-10">
+            <dd class="col-sm-10 text-light">
                 @Html.DisplayFor(model => model.CPU.Description)
             </dd>
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.GPU)
             </dt>
-            <dd class="col-sm-10">
+            <dd class="col-sm-10 text-light">
                 @Html.DisplayFor(model => model.GPU.Description)
             </dd>
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.RAM)
             </dt>
-            <dd class="col-sm-10">
+            <dd class="col-sm-10 text-light">
                 @Html.DisplayFor(model => model.RAM.Description)
             </dd>
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.SSD)
             </dt>
-            <dd class="col-sm-10">
+            <dd class="col-sm-10 text-light">
                 @Html.DisplayFor(model => model.SSD.Description)
             </dd>
             <div class="container-fluid d-flex mt-4">
@@ -61,14 +61,14 @@
     @if (User.IsInRole("Admin"))
     {
         <div>
-            <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> | 
-            <a asp-action="Index">Back</a>
+            <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> | 
+            <a class="btn btn-primary" asp-action="Index">Back</a>
         </div>
     }
     else
     {
         <div>
-            <a asp-action="Index">Back</a>
+            <a class="btn btn-primary" asp-action="Index">Back</a>
         </div>
     }
 
