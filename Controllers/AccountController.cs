@@ -123,5 +123,32 @@ namespace Computer_Mart.Controllers
         {
             return View();
         }
+
+        public IActionResult DemoLogin()
+        {
+            return View();
+        }
+        [HttpPost]
+        public Task<IActionResult> DemoLogin(string demoAccount)
+        {
+            if (demoAccount == "Admin")
+            {
+                Credential credential = new Credential()
+                {
+                    Username = "Admin",
+                    Password = "Admin1234*"
+                };
+                return Login(credential);
+            }
+            else
+            {
+				Credential credential = new Credential()
+				{
+					Username = "DemoUser",
+					Password = "User1234*"
+				};
+				return Login(credential);
+			}
+		}
     }
 }

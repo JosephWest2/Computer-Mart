@@ -1,0 +1,19 @@
+﻿@{
+	ViewData["Title"] = "Demo Login";
+}
+
+<div class="container d-flex flex-column align-items-center justify-content-center">
+	<h1>@ViewData["Title"]</h1>
+	<form asp-action="DemoLogin" class="m-2">
+		<input type="hidden" name="demoAccount" value="Admin" />
+		<button type="submit" class="btn btn-primary">
+			<i class="bi bi-person-fill"></i> Admin
+		</button>
+	</form>
+	<form asp-action="DemoLogin" class="m-2">
+		<input type="hidden" name="demoAccount" value="Visitor" />
+		<button type="submit" class="btn btn-success">
+			<i class="bi bi-person-fill"></i> Visitor
+		</button> 
+	</form>
+</div>
