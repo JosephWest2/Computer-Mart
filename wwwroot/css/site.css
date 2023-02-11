@@ -73,6 +73,6 @@ h4 {
 .text_grey {
     color: rgb(173, 179, 190);
 }
-bg_bright {
-    background-color: rgb(255, 255, 255, 0.55)
+.bg_bright {
+    background-color: rgb(202, 202, 202, 0.79)
 }
