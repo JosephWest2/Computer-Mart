@@ -74,5 +74,8 @@ h4 {
     color: rgb(173, 179, 190);
 }
 .bg_bright {
-    background-color: rgb(202, 202, 202, 0.79)
+    background-color: rgb(202, 202, 202, 0.79);
+}
+.bg_red {
+    background-color: rgb(197, 64, 75);
 }
