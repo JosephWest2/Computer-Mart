@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddDbContext<Computer_MartContext>(options =>
-		options.UseSqlServer(builder.Configuration.GetConnectionString("Computer_MartContext") ?? throw new InvalidOperationException("Connection string 'Computer_MartContext' not found.")));
+		options.UseSqlite("Filename=ComputerMartDatabase.db"));
 
 
 
@@ -55,8 +55,6 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-
-app.Services.CreateScope().ServiceProvider.GetService<Computer_MartContext>().Database.Migrate();
 
 app.UseRouting();
 
